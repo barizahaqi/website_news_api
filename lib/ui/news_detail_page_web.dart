@@ -68,6 +68,11 @@ class NewsDetailPageWeb extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleMedium,
                               ),
                               const SizedBox(height: 10.0),
+                              Text(
+                                article.description ?? 'No Description',
+                                style: Theme.of(context).textTheme.bodyLarge,
+                              ),
+                              const SizedBox(height: 10.0),
                               RichText(
                                   text: TextSpan(
                                       text:
@@ -81,11 +86,6 @@ class NewsDetailPageWeb extends StatelessWidget {
                                         ..onTap = () {
                                           launchUrl(Uri.parse(article.url));
                                         })),
-                              const SizedBox(height: 10.0),
-                              Text(
-                                article.description ?? 'No Description',
-                                style: Theme.of(context).textTheme.bodyLarge,
-                              ),
                               buildSocialButtons(article.url),
                             ],
                           ),

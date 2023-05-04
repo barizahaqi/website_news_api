@@ -6,6 +6,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:website_news_api/common/constant.dart';
 import 'package:website_news_api/data/model/article.dart';
 import 'package:website_news_api/ui/news_detail_screen.dart';
+import 'package:website_news_api/ui/news_web_view.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 class NewsDetailPageMobile extends StatelessWidget {
   const NewsDetailPageMobile({super.key, required this.article});
@@ -56,24 +58,33 @@ class NewsDetailPageMobile extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleMedium,
                     ),
                     const SizedBox(height: 10.0),
-                    RichText(
-                        text: TextSpan(
-                            text:
-                                'Click here to see this news website for full content',
-                            style: GoogleFonts.lato(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w400,
-                                letterSpacing: 0.15,
-                                color: Colors.blue),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                launchUrl(Uri.parse(article.url));
-                              })),
-                    const SizedBox(height: 10.0),
                     Text(
                       article.description ?? 'No Description',
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
+                    const SizedBox(height: 10.0),
+                    kIsWeb
+                        ? RichText(
+                            text: TextSpan(
+                                text:
+                                    'Click here to see this news website for full content',
+                                style: GoogleFonts.lato(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w400,
+                                    letterSpacing: 0.15,
+                                    color: Colors.blue),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    launchUrl(Uri.parse(article.url));
+                                  }))
+                        : ElevatedButton(
+                            child: const Text('Read more'),
+                            onPressed: () {
+                              Navigator.pushNamed(
+                                  context, NewsWebView.routeName,
+                                  arguments: article.url);
+                            },
+                          ),
                   ],
                 ),
               ),

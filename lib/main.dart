@@ -8,6 +8,7 @@ import 'package:website_news_api/provider/list_provider.dart';
 import 'package:website_news_api/provider/search_provider.dart';
 import 'package:website_news_api/ui/home_page.dart';
 import 'package:website_news_api/ui/news_detail_screen.dart';
+import 'package:website_news_api/ui/news_web_view.dart';
 import 'package:website_news_api/ui/search_page.dart';
 
 void main() {
@@ -46,6 +47,8 @@ class MyApp extends StatelessWidget {
             NewsDetailScreen.routeName: (context) => NewsDetailScreen(
                 article: ModalRoute.of(context)?.settings.arguments as Article),
             SearchPage.routeName: (context) => const SearchPage(),
+            NewsWebView.routeName: (context) => NewsWebView(
+                url: ModalRoute.of(context)?.settings.arguments as String),
           },
         ));
   }
